@@ -1,4 +1,5 @@
-<?php
+﻿<?php
+
 /**
  * This file contains the class Password.
  * For more information on this file and how to use the class please visit
@@ -10,7 +11,6 @@
  * @package  Password
  * @author   Philip Norton <philipnorton42@gmail.com>
  * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
- * @version  SVN:
  * @link     http://www.hashbangcode.com/
  */
 
@@ -25,11 +25,12 @@
  * @author   Philip Norton <philipnorton42@gmail.com>
  * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @version  Release: 1.0 04/09/2009
- * @link     http://www.hashbangcode.com/examples/password/Password.phps
+ * @link     https://github.com/philipnorton42/PHP-Password
  *
  */
-class Password
-{
+ class Password
+ {
+
     /**
      *
      * @var array Holds an array of any errors encountered whilst validating
@@ -41,64 +42,63 @@ class Password
      *
      * @var integer The minimum number of characters that the password must be.
      */
-    protected $minLength = 7;
+     protected $minLength = 7;
 
-    /**
-     *
-     * @var integer The maximum number of characters that the password must be.
-     */
-    protected $maxLength = 15;
+     /**
+      *
+      * @var integer The maximum number of characters that the password must be.
+      */
+     protected $maxLength = 15;
 
-    /**
-     *
-     * @var integer The minimum number of numbers that the password should contain.
-     */
-    protected $minNumbers = 1;
+     /**
+      *
+      * @var integer The minimum number of numbers that the password should contain.
+      */
+     protected $minNumbers = 1;
 
-    /**
-     *
-     * @var integer The minimum number of letters that the password should contain.
-     */
-    protected $minLetters = 5;
+     /**
+      *
+      * @var integer The minimum number of letters that the password should contain.
+      */
+     protected $minLetters = 5;
 
-    /**
-     *
-     * @var integer The minimum number of lower case letters that the password
-     *              should contain.
-     */
-    protected $minLowerCase = 1;
+     /**
+      *
+      * @var integer The minimum number of lower case letters that the password
+      *              should contain.
+      */
+     protected $minLowerCase = 1;
 
-    /**
-     *
-     * @var integer The minimum number of upper case letters that the password
-     *              should contain.
-     */
-    protected $minUpperCase = 1;
+     /**
+      *
+      * @var integer The minimum number of upper case letters that the password
+      *              should contain.
+      */
+     protected $minUpperCase = 1;
 
-    /**
-     *
-     * @var integer The minimum number of symbols that the password should contain.
-     */
-    protected $minSymbols = 1;
+     /**
+      *
+      * @var integer The minimum number of symbols that the password should contain.
+      */
+     protected $minSymbols = 1;
 
-    /**
-     *
-     * @var integer The maximum number of symbols that the password should contain.
-     */
-    protected $maxSymbols = 3;
+     /**
+      *
+      * @var integer The maximum number of symbols that the password should contain.
+      */
+     protected $maxSymbols = 3;
 
-    /**
-     *
-     * @var array The symbols that are allowed to be in the password.
-     */
-    protected $allowedSymbols = array('#', '_', '!');
+     /**
+      *
+      * @var array The symbols that are allowed to be in the password.
+      */
+     protected $allowedSymbols = array('#', '_', '!');
 
-    /**
-     *
-     * @var integer The score of the password.
-     */
-    protected $score = 100;
-
+     /**
+      *
+      * @var integer The score of the password.
+      */
+     protected $score = 100;
 
     /**
      * Constructor
@@ -124,7 +124,7 @@ class Password
         // Make sure that parameters don't overlap in such a way as to make
         // validation impossible.
         $this->_sanitizeInputs();
-        
+
         $this->errors = array();
 
         // Check password minimum length, return at this step.
@@ -190,7 +190,7 @@ class Password
      * point in scoring a password that can't be used.
      *
      * @param string $password The password to score.
-     * 
+     *
      * @return mixed Returns an integer score of the password strength.
      */
     public function scorePassword($password)
@@ -273,7 +273,7 @@ class Password
         // Make sure that parameters don't overlap in such a way as to make
         // validation impossible.
         $this->_sanitizeInputs();
-        
+
         // Initialise variable.
         $password = '';
 
@@ -311,7 +311,7 @@ class Password
             }
         }
 
-        // If the created password isn't quite long enough then add some lowercase        
+        // If the created password isn't quite long enough then add some lowercase
         // letters to the password string.
         if (strlen($password) < $this->minLength) {
             while (strlen($password) < $this->minLength) {
@@ -324,14 +324,14 @@ class Password
 
         // Return the password string.
         return $password;
-    }    
-    
+    }
+
     /**
      * Set multiple options for the object in one go.
      *
      * @param array $options An associative array of options.
      *
-     * @return null     
+     * @return null
      */
     public function setOptions($options)
     {
@@ -376,7 +376,7 @@ class Password
         // validation impossible.
         $this->_sanitizeInputs();
     }
-    
+
     /**
      * Get any errors produced through the last validation.
      *
@@ -448,7 +448,7 @@ class Password
      * @param array $symbols An array of symbols that can be included in the
      *                       password.
      *
-     * @return null     
+     * @return null
      */
     public function setAllowedSymbols($symbols)
     {
@@ -462,7 +462,7 @@ class Password
      *
      * @param integer $minSymbols The minimum number of symbols.
      *
-     * @return null     
+     * @return null
      */
     public function setMinSymbols($minSymbols)
     {
@@ -484,7 +484,7 @@ class Password
      *
      * @param integer $maxSymbols The maximum number of symbols.
      *
-     * @return null     
+     * @return null
      */
     public function setMaxSymbols($maxSymbols)
     {
@@ -508,7 +508,7 @@ class Password
      * password then these numbers are added together and used as the new maximum
      * password length.
      *
-     * @return null     
+     * @return null
      */
     private function _sanitizeInputs()
     {
