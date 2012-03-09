@@ -1,0 +1,1 @@
+Password validation and generation class in PHP.
