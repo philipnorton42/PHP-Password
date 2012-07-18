@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Project Name" default="build" description="Jenkins">
+
+	<import file="../../builddefault.xml"/>
+
+	<!--
+	Overwrite individual targets - can leave empty to stop a called target
+	from having any effect.
+	-->
+
+	<!--
+	Stop the docs target from using ftp
+	-->
+	<target name="docs" depends="init, clean, phpdoc, phpcb, htaccess, copysvg, copybuild, ftp"/>
+
+
+</project>
