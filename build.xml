@@ -12,6 +12,7 @@
 	<!--
 	Stop the docs target from using ftp
 	-->
+	<target name="build" depends="init, clean, verify, analyze, docs" description="Do a full build"/>	
 	<target name="docs" depends="init, clean, phpdoc, phpcb, htaccess, copysvg, copybuild"/>
 
 
