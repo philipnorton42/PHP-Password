@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /**
  * This file contains the class Password.
@@ -36,7 +36,7 @@
      * @var array Holds an array of any errors encountered whilst validating
      *            the password.
      */
-    protected $errors = array();
+      protected $errors = array();
 
     /**
      *
@@ -196,7 +196,7 @@
     public function scorePassword($password)
     {
         // Make sure password is valid.
-        if (!$this->validatePassword($password)) {
+        if ($this->validatePassword($password)) {
             return false;
         }
 
@@ -253,6 +253,10 @@
             }
         }
 
+            // Reduce score for short passwords.
+            if (strlen($passwordLetters) < 6) {
+                $this->score = $this->score - 5;
+            }
         if ($this->score < 0) {
             $this->score = 0;
         }
