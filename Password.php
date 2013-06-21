@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /**
  * This file contains the class Password.
@@ -198,6 +198,11 @@
         // Make sure password is valid.
         if (!$this->validatePassword($password)) {
             return false;
+        }
+
+        if ($password == '') {
+        	$this->score = 0;
+        	return $this->score;	
         }
 
         // Reset initial score.

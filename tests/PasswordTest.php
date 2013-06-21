@@ -160,12 +160,12 @@ class PasswordTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_int($score));
     }
 
-/*    public function testPasswordNegativeScore()
+    public function testPasswordNegativeScore()
     {
         $this->objPassword->setMaxLength(100);
         $score = $this->objPassword->scorePassword('thisthatotherwordyesnomaybe33oo#_Xu3!');
         $this->assertTrue($score == 0);
-    }*/
+    }
 
     public function testPasswordScoreNoSumbols()
     {
@@ -237,6 +237,10 @@ class PasswordTest extends PHPUnit_Framework_TestCase
         //echo $this->objPassword->generatePassword();
         $this->objPassword->setAllowedSymbols(array('$', '%' ,'A' ,'!', '#'));
         $this->assertTrue(is_string($this->objPassword->generatePassword(9, 3)));
+    }
+    
+    public function testPasswordOfZeroLengthScoresZero() {
+    	$this->assertEquals($this->objPassword->validatePassword(''), 0);
     }
     
     public function tearDown()
