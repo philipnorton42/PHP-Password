@@ -201,7 +201,7 @@
         }
 
         if ($password == '') {
-        	$this->score = 0;
+         $this->score = 0;
         	return $this->score;	
         }
 
@@ -297,7 +297,12 @@
                 $password .= $upperLetters[(rand() % strlen($upperLetters))];
             }
         }
-
+        
+        // Add letters.
+        if (($this->minLowerCase + $this->minUpperCase) < ($this->minLetters)) {
+            $password .= $lowerLetters[(rand() % strlen($lowerLetters))];
+        }
+        
         // Add numbers.
         $numbers  = '23456789';
         if ($this->minNumbers != 0) {
