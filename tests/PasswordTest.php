@@ -151,7 +151,7 @@ class PasswordTest extends PHPUnit_Framework_TestCase
     
     public function testPasswordScoreWithInValidPass()
     {
-        $this->assertFalse($this->objPassword->scorePassword('8sdf7aysd'));
+        $this->assertEquals($this->objPassword->scorePassword('8sdf7aysd'), 0);
     }
     
     public function testPasswordScore()
