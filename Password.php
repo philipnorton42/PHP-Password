@@ -197,12 +197,12 @@
     {
         // Make sure password is valid.
         if (!$this->validatePassword($password)) {
-            return false;
+            return 0;
         }
 
         if ($password == '') {
-         $this->score = 0;
-        	return $this->score;	
+            $this->score = 0;
+            return $this->score;	
         }
 
         // Reset initial score.
