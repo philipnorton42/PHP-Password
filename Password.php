@@ -157,7 +157,7 @@ class Password {
     // Check the maximum number of symbols in the password.
     if (strlen(preg_replace('/([a-zA-Z0-9]*)/', '', $password)) > $this->maxSymbols) {
       if ($this->maxSymbols == 0) {
-        $this->errors[] = 'You aren not allowed any symbols in password, please remove them.';
+        $this->errors[] = 'You are not allowed any symbols in password, please remove them.';
       } else {
         $this->errors[] = 'Too many symbols in password.';
       }
