@@ -79,7 +79,7 @@ class PasswordTest extends PHPUnit_Framework_TestCase
     
     public function testAllowedSymbols()
     {
-        $this->objPassword->setAllowedSymbols(54643476);
+        $this->objPassword->setAllowedSymbols('#!_');
         $this->assertTrue(is_array($this->objPassword->getAllowedSymbols()));
         $this->assertTrue($this->objPassword->validatePassword('ASD23a#z_Xx!'));
         $this->objPassword->setAllowedSymbols(array('$', '%' ,'A' ,'!', '#'));
@@ -234,13 +234,35 @@ class PasswordTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_string($this->objPassword->generatePassword()));
         $this->objPassword->setAllowedSymbols(array('#'));        
         $this->assertTrue(strpos($this->objPassword->generatePassword(), '#') !== false);
-        //echo $this->objPassword->generatePassword();
         $this->objPassword->setAllowedSymbols(array('$', '%' ,'A' ,'!', '#'));
         $this->assertTrue(is_string($this->objPassword->generatePassword(9, 3)));
     }
     
     public function testPasswordOfZeroLengthScoresZero() {
     	$this->assertEquals($this->objPassword->validatePassword(''), 0);
+    }
+    
+    public function testSetDuplicateAllowedSymbolsFiltersOutDuplicates() {
+        $this->objPassword->setAllowedSymbols(array('.', '.', '.', '.'));
+        $symbols = $this->objPassword->getAllowedSymbols();
+        $this->assertEquals(count($symbols), 1);
+        $this->assertEquals(array_pop($symbols), '.');
+    }
+    
+    public function testAllowedSymbolsCanBePassedAsString() {
+        $this->objPassword->setAllowedSymbols('!=&');
+        $symbols = $this->objPassword->getAllowedSymbols();
+        $this->assertEquals(count($symbols), 3);
+        $this->assertEquals(array_pop($symbols), '&');
+        $this->assertEquals(array_pop($symbols), '=');
+        $this->assertEquals(array_pop($symbols), '!');
+    }
+    
+    public function testOnlySymbolsAllowedInSymbolsArray() {
+        $this->objPassword->setAllowedSymbols('Ab$');
+        $symbols = $this->objPassword->getAllowedSymbols();
+        $this->assertEquals(count($symbols), 1);
+        $this->assertEquals(array_pop($symbols), '$');
     }
     
     public function tearDown()
