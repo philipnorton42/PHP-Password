@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file contains the class Password.
  * For more information on this file and how to use the class please visit
@@ -13,6 +12,7 @@
  * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @link     http://www.hashbangcode.com/
  */
+namespace PHPPassword;
 
 /**
  * This class can be used to validate a password or password like string to
@@ -444,8 +444,8 @@ class Password {
    * not passed to this function then it is not stored.
    *
    * @param array|string $symbols An array of symbols that can be included in the
-   *                       password. This can be a string, which will be parsed 
-   *                       into an array of symbols. 
+   *                       password. This can be a string, which will be parsed
+   *                       into an array of symbols.
    *
    * @return null
    */
@@ -455,7 +455,7 @@ class Password {
     }
 
     // Filter the symbols to remove any non symbol characters.
-    $symbols = array_filter($symbols, array($this, 'filterAllowedSymbols')); 
+    $symbols = array_filter($symbols, array($this, 'filterAllowedSymbols'));
 
     if (is_array($symbols)) {
       $symbols = array_unique($symbols);
