@@ -104,7 +104,7 @@ class Password {
    *
    * @param array $options An associative array of options.
    */
-  public function Password($options = array()) {
+  public function __construct($options = array()) {
     // Pass options setting onto the setOptions() function.
     $this->setOptions($options);
   }
