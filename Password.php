@@ -411,6 +411,15 @@ class Password {
   }
 
   /**
+   * The minimum character length of the password.
+   *
+   * @return integer The minimum character length of the password.
+   */
+  public function getMinLength() {
+    return $this->minLength;
+  }
+
+  /**
    * Get the minimum length of password allowed.
    *
    * @param integer $minLength The minimum length of password allowed.
