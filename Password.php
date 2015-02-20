@@ -509,6 +509,24 @@ class Password {
   }
 
   /**
+   * Get the minimum number of upper case letters required in the password.
+   *
+   * @return integer The minimum number of upper case letters.
+   */
+  public function getMinUpperCase() {
+    return $this->minUpperCase;
+  }
+
+  /**
+   * Get the minimum number of lower case letters required in the password.
+   *
+   * @return integer The minimum number of lower case letters.
+   */
+  public function getMinLowerCase() {
+    return $this->minLowerCase;
+  }
+
+  /**
    * Set the maximum number of symbols required in the password.
    *
    * @param integer $maxSymbols The maximum number of symbols.
