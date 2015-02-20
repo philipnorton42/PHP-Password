@@ -2,31 +2,32 @@
 
 include('../Password.php');
 
+
 class PasswordTest extends PHPUnit_Framework_TestCase
 {
     protected $objPassword;
-    
+
     public function setUp()
     {
-        $this->objPassword = new Password();
+        $this->objPassword = new \PHPPassword\Password();
     }
 
     public function testInitialMaxLength()
     {
         $this->assertEquals(15, $this->objPassword->getMaxLength());
     }
- 
+
     public function testInitialMinLength()
     {
         $this->assertEquals(7, $this->objPassword->getMinLength());
     }
-    
+
     public function testInitialLengthSet()
     {
-        $objPassword = new Password(array('maxLength' => 8));
+        $objPassword = new \PHPPassword\Password(array('maxLength' => 8));
         $this->assertEquals(8, $objPassword->getMaxLength());
     }
-    
+
     public function testBlankPassword()
     {
         $result = $this->objPassword->validatePassword('');
@@ -38,25 +39,25 @@ class PasswordTest extends PHPUnit_Framework_TestCase
         $result = $this->objPassword->validatePassword(true);
         $this->assertFalse($result);
     }
-    
+
     public function testSimplePassword()
     {
         $result = $this->objPassword->validatePassword('password');
         $this->assertFalse($result);
     }
-    
+
     public function testSimplePasswordWithNumbers()
     {
         $result = $this->objPassword->validatePassword('p2w3ord2');
         $this->assertFalse($result);
-        $this->assertTrue(is_Array($this->objPassword->getErrors()));        
+        $this->assertTrue(is_Array($this->objPassword->getErrors()));
     }
 
     public function testSimplePasswordWithNumbersAndSymbol()
     {
         $this->assertFalse($this->objPassword->validatePassword('qwasd12!'));
     }
-    
+
     public function testMaxLength()
     {
         $this->objPassword->setMaxLength(3);
@@ -68,7 +69,7 @@ class PasswordTest extends PHPUnit_Framework_TestCase
         $result = $this->objPassword->validatePassword('Qwasd12!');
         $this->assertTrue($result);
     }
-    
+
     public function testMinLength()
     {
         $this->objPassword->setMinLength(2);
@@ -76,7 +77,7 @@ class PasswordTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->objPassword->validatePassword('Qw12'));
         $this->assertEquals(7, $this->objPassword->getMinLength());
     }
-    
+
     public function testAllowedSymbols()
     {
         $this->objPassword->setAllowedSymbols('#!_');
@@ -86,10 +87,10 @@ class PasswordTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($this->objPassword->getAllowedSymbols()));
         $this->assertTrue(in_array('%', $this->objPassword->getAllowedSymbols()));
     }
-    
+
     public function testSetParametersAndTestPassword()
     {
-        $objPassword = new Password(array(
+        $objPassword = new \PHPPassword\Password(array(
                                     'minLength'      => 15,
                                     'maxLength'      => 30,
                                     'minNumbers'     => 5,
@@ -101,18 +102,18 @@ class PasswordTest extends PHPUnit_Framework_TestCase
                                     'allowedSymbols' => array('#', '_', '-', '!', '[', ']', '=', '~', '*'),
                                     ));
         $this->assertFalse($objPassword->validatePassword('qASw1asd12!'));
-        $this->assertFalse($objPassword->validatePassword('�"$%^�$%�$!')); 
+        $this->assertFalse($objPassword->validatePassword('�"$%^�$%�$!'));
         $this->assertFalse($objPassword->validatePassword('QWEASDFASDFF23452565ty~@{}~@{~@!'));
         $this->assertFalse($objPassword->validatePassword('##[]#[#][]#[]#][,./;#[]-'));
         $this->assertFalse($objPassword->validatePassword('QWERTYQWERTR12345#_![]='));
         $this->assertTrue($objPassword->validatePassword('QWERTYqwerty12345#_![]='));
         $this->assertFalse($objPassword->validatePassword('qwertyqwerty12345#_![]='));
-        $this->assertTrue($objPassword->validatePassword('5a74A#2d]G6D[r44Df-g8=H5f*2!')); 
+        $this->assertTrue($objPassword->validatePassword('5a74A#2d]G6D[r44Df-g8=H5f*2!'));
     }
 
     public function testSetWierdParametersAndTestPassword()
     {
-        $objPassword = new Password(array(
+        $objPassword = new \PHPPassword\Password(array(
                                     'minLength'      => 50,
                                     'maxLength'      => 32,
                                     'minNumbers'     => 5,
@@ -124,18 +125,18 @@ class PasswordTest extends PHPUnit_Framework_TestCase
                                     'allowedSymbols' => array('#', '_', '-', '!', '[', ']', '=', '~', '*'),
                                     ));
         $this->assertFalse($objPassword->validatePassword('qASw1asd12!'));
-        $this->assertFalse($objPassword->validatePassword('�"$%^�$%�$!')); 
+        $this->assertFalse($objPassword->validatePassword('�"$%^�$%�$!'));
         $this->assertFalse($objPassword->validatePassword('QWEASDFASDFF23452565ty~@{}~@{~@!'));
         $this->assertFalse($objPassword->validatePassword('##[]#[#][]#[]#][,./;#[]-'));
         $this->assertFalse($objPassword->validatePassword('QWERTYQWERTR12345#_![]='));
         $this->assertTrue($objPassword->validatePassword('QWWERWEEERTYeqwewerqwerty12345!#'));
         $this->assertFalse($objPassword->validatePassword('qwertyqwerty12345#_![]='));
-        $this->assertFalse($objPassword->validatePassword('5a74A#2d]G6D[r44Df-g8=H5f*2!')); 
-    }    
-    
+        $this->assertFalse($objPassword->validatePassword('5a74A#2d]G6D[r44Df-g8=H5f*2!'));
+    }
+
     public function testRunSanitizeInputsViaOddParameters()
     {
-        $objPassword = new Password(array(
+        $objPassword = new \PHPPassword\Password(array(
                                     'minLength'      => 5,
                                     'maxLength'      => 500,
                                     'minNumbers'     => 10,
@@ -147,13 +148,39 @@ class PasswordTest extends PHPUnit_Framework_TestCase
                                     'allowedSymbols' => array('#', '_', '-', '!', '[', ']', '=', '~', '*'),
                                     ));
         $this->assertEquals(30, $objPassword->getMinLength());
-    }    
-    
+    }
+
+    public function testSetIssue5Parameters() {
+      $objPassword = new \PHPPassword\Password(array(
+                                    'minLength'      => 8,
+                                    'maxLength'      => 30,
+                                    'minNumbers'     => 2,
+                                    'minLetters'     => 5,
+                                    'minLowerCase'   => 3,
+                                    'minUpperCase'   => 2,
+                                    'minSymbols'     => 1,
+                                    'maxSymbols'     => 1,
+                                    'allowedSymbols' => array('#', '_', '-', '!', '[', ']', '=', '~', '*'),
+                                    ));
+
+      $password = $objPassword->generatePassword();
+
+      $this->assertGreaterThanOrEqual(strlen($objPassword->generatePassword()), $objPassword->getMinLength());
+      $this->assertLessThanOrEqual($objPassword->getMaxLength(), strlen($objPassword->generatePassword()));
+
+      $this->assertGreaterThanOrEqual($objPassword->getMinLetters(), preg_match_all('([a-zA-Z])', $password));
+      $this->assertGreaterThanOrEqual($objPassword->getMinUpperCase(), preg_match_all('([A-Z])', $password));
+      $this->assertGreaterThanOrEqual($objPassword->getMinLowerCase(), preg_match_all('([a-z])', $password));
+
+      $this->assertGreaterThanOrEqual($objPassword->getMinSymbols(), preg_match_all('([\#\_\!\[\]\=\~\*\-])', $password));
+      $this->assertLessThanOrEqual($objPassword->getMaxSymbols(), preg_match_all('([\#\_\!\[\]\=\~\*\-])', $password));
+  }
+
     public function testPasswordScoreWithInValidPass()
     {
         $this->assertEquals($this->objPassword->scorePassword('8sdf7aysd'), 0);
     }
-    
+
     public function testPasswordScore()
     {
         $score = $this->objPassword->scorePassword('wound33oo#_Xu3!');
@@ -174,29 +201,29 @@ class PasswordTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_int($score));
         $this->assertEquals(0, $this->objPassword->getMinSymbols());
     }
-    
+
     public function testMaxSymbols()
     {
         $this->objPassword->setMaxSymbols(54643476);
         $this->assertEquals(54643476, $this->objPassword->getMaxSymbols());
         $this->assertTrue($this->objPassword->validatePassword('ASD23a#z_Xx!'));
         $this->assertTrue($this->objPassword->validatePassword('ASD23!!!az_Xx!'));
-        $this->objPassword->setMaxSymbols(3);        
+        $this->objPassword->setMaxSymbols(3);
     }
-    
+
     public function testNoSymbols()
     {
         $this->objPassword->setMaxSymbols(0);
         $this->assertEquals(0, $this->objPassword->getMaxSymbols());
         $this->assertTrue($this->objPassword->validatePassword('ASD23azdfdXx'));
         $this->assertFalse($this->objPassword->validatePassword('ASD23!az_Xx!'));
-        $this->objPassword->setMaxSymbols(3);  
+        $this->objPassword->setMaxSymbols(3);
     }
-    
+
     public function testCreatedPassword()
-    {  
+    {
         $this->assertTrue(is_string($this->objPassword->generatePassword()));
-    
+
         // Default of this should be to produce a valid password. However, because it is random we need to test lots.
         $this->assertTrue(is_bool($this->objPassword->validatePassword($this->objPassword->generatePassword())));
         $this->assertTrue(is_bool($this->objPassword->validatePassword($this->objPassword->generatePassword())));
@@ -206,10 +233,10 @@ class PasswordTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_bool($this->objPassword->validatePassword($this->objPassword->generatePassword())));
         $this->assertTrue(is_bool($this->objPassword->validatePassword($this->objPassword->generatePassword())));
     }
-    
+
     public function testCreatedPasswordMinLength10()
     {
-        $this->objPassword->setMinLength(10);    
+        $this->objPassword->setMinLength(10);
         $this->assertTrue(is_string($this->objPassword->generatePassword()));
         $this->assertEquals(10, strlen($this->objPassword->generatePassword()));
     }
@@ -226,29 +253,29 @@ class PasswordTest extends PHPUnit_Framework_TestCase
         $this->objPassword->setMaxLength(1000);
         $this->assertTrue(is_string($this->objPassword->generatePassword()));
         $this->objPassword->generatePassword();
-        $this->assertEquals(76, strlen($this->objPassword->generatePassword())); 
+        $this->assertEquals(76, strlen($this->objPassword->generatePassword()));
     }
 
     public function testCreatedPasswordStrengthParams()
     {
         $this->assertTrue(is_string($this->objPassword->generatePassword()));
-        $this->objPassword->setAllowedSymbols(array('#'));        
+        $this->objPassword->setAllowedSymbols(array('#'));
         $this->assertTrue(strpos($this->objPassword->generatePassword(), '#') !== false);
         $this->objPassword->setAllowedSymbols(array('$', '%' ,'A' ,'!', '#'));
         $this->assertTrue(is_string($this->objPassword->generatePassword(9, 3)));
     }
-    
+
     public function testPasswordOfZeroLengthScoresZero() {
     	$this->assertEquals($this->objPassword->validatePassword(''), 0);
     }
-    
+
     public function testSetDuplicateAllowedSymbolsFiltersOutDuplicates() {
         $this->objPassword->setAllowedSymbols(array('.', '.', '.', '.'));
         $symbols = $this->objPassword->getAllowedSymbols();
         $this->assertEquals(count($symbols), 1);
         $this->assertEquals(array_pop($symbols), '.');
     }
-    
+
     public function testAllowedSymbolsCanBePassedAsString() {
         $this->objPassword->setAllowedSymbols('!=&');
         $symbols = $this->objPassword->getAllowedSymbols();
@@ -257,14 +284,14 @@ class PasswordTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array_pop($symbols), '=');
         $this->assertEquals(array_pop($symbols), '!');
     }
-    
+
     public function testOnlySymbolsAllowedInSymbolsArray() {
         $this->objPassword->setAllowedSymbols('Ab$');
         $symbols = $this->objPassword->getAllowedSymbols();
         $this->assertEquals(count($symbols), 1);
         $this->assertEquals(array_pop($symbols), '$');
     }
-    
+
     public function tearDown()
     {
         $this->objPassword = null;

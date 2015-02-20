@@ -280,7 +280,7 @@ class Password {
     // Add lower case letters.
     $lowerLetters = 'aeiubdghjmnpqrstvxyz';
     if ($this->minLowerCase != 0) {
-      for ($i = 0; $i <= $this->minLowerCase; ++$i) {
+      for ($i = 0; $i < $this->minLowerCase; ++$i) {
         $password .= $lowerLetters[(rand() % strlen($lowerLetters))];
       }
     }
@@ -288,7 +288,7 @@ class Password {
     // Add upper case letters.
     $upperLetters = 'AEUBDGHJLMNPQRSTVWXYZ';
     if ($this->minUpperCase != 0) {
-      for ($i = 0; $i <= $this->minUpperCase; ++$i) {
+      for ($i = 0; $i < $this->minUpperCase; ++$i) {
         $password .= $upperLetters[(rand() % strlen($upperLetters))];
       }
     }
@@ -301,7 +301,7 @@ class Password {
     // Add numbers.
     $numbers = '23456789';
     if ($this->minNumbers != 0) {
-      for ($i = 0; $i <= $this->minNumbers; ++$i) {
+      for ($i = 0; $i < $this->minNumbers; ++$i) {
         $password .= $numbers[(rand() % strlen($numbers))];
       }
     }
@@ -310,7 +310,7 @@ class Password {
     if ($this->maxSymbols != 0) {
       $symbols = implode('', $this->allowedSymbols);
       if ($this->minSymbols != 0 && strlen($symbols) > 0) {
-        for ($i = 0; $i <= $this->minSymbols; ++$i) {
+        for ($i = 0; $i < $this->minSymbols; ++$i) {
           $password .= $symbols[(rand() % strlen($symbols))];
         }
       }
