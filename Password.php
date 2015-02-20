@@ -431,13 +431,14 @@ class Password {
   }
 
   /**
-   * The minimum character length of the password.
+   * The minimum letter count in the password.
    *
-   * @return integer The minimum character length of the password.
+   * @return integer The minimum letter count in the password.
    */
-  public function getMinLength() {
-    return $this->minLength;
+  public function getMinLetters() {
+    return $this->minLetters;
   }
+
 
   /**
    * Get the symbols allowed in password.
