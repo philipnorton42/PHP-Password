@@ -126,40 +126,40 @@ class Password {
 
     // Check password minimum length, return at this step.
     if (strlen($password) < $this->minLength) {
-      $this->errors[] = 'Password must be ' . $this->minLength . ' characters long, current password is too short at ' . strlen($password) . ' characters.';
+      $this->errors[] = sprintf(_('Password must be %d characters long, current password is too short at %d characters.'), $this->minLength, strlen($password));
       return false;
     }
     // Check password maximum length, return at this step.
     if (strlen($password) > $this->maxLength) {
-      $this->errors[] = 'Password must be ' . $this->minLength . ' characters long, current password is too long at ' . strlen($password) . ' characters.';
+      $this->errors[] = sprintf(_('Password must be %d characters long, current password is too long at %d characters.'), $this->minLength, strlen($password));
       return false;
     }
     // Check the number of numbers in the password.
     if (strlen(preg_replace('/([^0-9]*)/', '', $password)) < $this->minNumbers) {
-      $this->errors[] = 'Not enough numbers in password, a minimum of ' . $this->minNumbers . ' required.';
+      $this->errors[] = sprintf(_('Not enough numbers in password, a minimum of %d required.'), $this->minNumbers);
     }
     // Check the number of letters in the password
     if (strlen(preg_replace('/([^a-zA-Z]*)/', '', $password)) < $this->minLetters) {
-      $this->errors[] = 'Not enough letters in password, a minimum of ' . $this->minLetters . ' required.';
+      $this->errors[] = sprintf(_('Not enough letters in password, a minimum of %d required.'), $this->minLetters);
     }
     // Check the number of lower case letters in the password
     if (strlen(preg_replace('/([^a-z]*)/', '', $password)) < $this->minLowerCase && $this->minLowerCase != 0) {
-      $this->errors[] = 'Not enough lower case letters in password, a minimum of ' . $this->minLowerCase . ' required.';
+      $this->errors[] = sprintf(_('Not enough lower case letters in password, a minimum of %d required.'), $this->minLowerCase);
     }
     // Check the number of upper case letters in the password
     if (strlen(preg_replace('/([^A-Z]*)/', '', $password)) < $this->minUpperCase && $this->minUpperCase != 0) {
-      $this->errors[] = 'Not enough upper case letters in password, a minimum of ' . $this->minUpperCase . ' required.';
+      $this->errors[] = sprintf(_('Not enough upper case letters in password, a minimum of %d required.'), $this->minUpperCase);
     }
     // Check the minimum number of symbols in the password.
     if (strlen(preg_replace('/([a-zA-Z0-9]*)/', '', $password)) < $this->minSymbols && $this->maxSymbols != 0) {
-      $this->errors[] = 'Not enough symbols in password, a minimum of ' . $this->minSymbols . ' required.';
+      $this->errors[] = sprintf(_('Not enough symbols in password, a minimum of %d required.'), $this->minSymbols);
     }
     // Check the maximum number of symbols in the password.
     if (strlen(preg_replace('/([a-zA-Z0-9]*)/', '', $password)) > $this->maxSymbols) {
       if ($this->maxSymbols == 0) {
-        $this->errors[] = 'You are not allowed any symbols in password, please remove them.';
+        $this->errors[] = _('You are not allowed any symbols in password, please remove them.');
       } else {
-        $this->errors[] = 'Too many symbols in password.';
+        $this->errors[] = _('Too many symbols in password.');
       }
     }
 
@@ -168,7 +168,7 @@ class Password {
       $symbols = preg_replace('/([a-zA-Z0-9]*)/', '', $password);
       for ($i = 0; $i < strlen($symbols); ++$i) {
         if (!in_array($symbols[$i], $this->allowedSymbols)) {
-          $this->errors[] = 'Non specified symbol ' . $symbols[$i] . ' used in password, please use one of ' . implode('', $this->allowedSymbols) . '.';
+          $this->errors[] = sprintf(_('Non specified symbol %s used in password, please use one of %s.'), $symbols[$i], implode('', $this->allowedSymbols));
         }
       }
     }
